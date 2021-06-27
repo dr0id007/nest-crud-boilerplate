@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { UserEntity } from './users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity as User } from './users/entities/user.entity';
 import 'dotenv';
 
 @Module({
@@ -16,7 +16,7 @@ import 'dotenv';
       synchronize: true,
       logger: 'advanced-console',
       logging: 'all',
-      entities: [UserEntity],
+      entities: [User],
     }),
     UsersModule,
   ],

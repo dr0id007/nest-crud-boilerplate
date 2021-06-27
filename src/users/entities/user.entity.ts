@@ -13,12 +13,6 @@ export class UserEntity extends BaseEntity {
   @Column({ length: 240 })
   bio: string;
 
-  @Column({ name: 'follower_count', default: 0 })
-  followerCount: number;
-
-  @Column({ name: 'followee_count', default: 0 })
-  followeeCount: number;
-
   @Column('boolean', { default: false })
   verified: boolean;
 }
