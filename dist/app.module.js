@@ -11,11 +11,26 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
+const user_entity_1 = require("./users/entities/user.entity");
+const typeorm_1 = require("@nestjs/typeorm");
+require("dotenv");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
-        imports: [users_module_1.UsersModule],
+        imports: [
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'postgres',
+                username: 'admin',
+                password: 'admin',
+                database: 'test',
+                synchronize: true,
+                logger: 'advanced-console',
+                logging: 'all',
+                entities: [user_entity_1.UserEntity],
+            }),
+            users_module_1.UsersModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
