@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity as User } from './entities/user.entity';
+import { ERROR } from './users.error';
 
 @Injectable()
 export class UsersService {
@@ -11,13 +12,13 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     if ((await this.userRepo.find({ email: createUserDto.email })).length > 0)
-      return { err: 'email already is in use' };
+      return { err: ERROR.EMAIL };
 
     if (
       (await this.userRepo.find({ username: createUserDto.username })).length >
       0
     )
-      return { err: 'username is already in use' };
+      return { err: ERROR.USERNAME };
 
     const user: User = this.userRepo.create(createUserDto);
     return await this.userRepo.save(user);
