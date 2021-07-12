@@ -13,6 +13,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   readonly lastname: string;
 
+  @IsNotEmpty()
+  readonly password: string;
+
   readonly avatar: string;
 
   readonly bio: string;

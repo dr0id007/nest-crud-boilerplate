@@ -15,6 +15,9 @@ export class UserEntity extends BaseEntity {
   @Column({ length: 30 })
   lastname: string;
 
+  @Column({ nullable: false })
+  password: string;
+
   @Column({ length: 100, nullable: true })
   avatar: string;
 
