@@ -1,7 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import {
+  SwaggerModule,
+  DocumentBuilder,
+  SwaggerCustomOptions,
+  SwaggerDocumentOptions,
+} from '@nestjs/swagger';
 import dotenv from 'dotenv';
 
 async function bootstrap() {
@@ -15,8 +20,20 @@ async function bootstrap() {
     .addTag('api')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  const options: SwaggerDocumentOptions = {
+    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+  };
+
+  const document = SwaggerModule.createDocument(app, config, options);
+
+  const customOptions: SwaggerCustomOptions = {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'My API Docs',
+  };
+
+  SwaggerModule.setup('api', app, document, customOptions);
 
   await app.listen(4000);
 }
