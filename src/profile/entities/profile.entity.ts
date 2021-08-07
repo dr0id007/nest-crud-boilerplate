@@ -1,9 +1,7 @@
 import { BaseEntity } from '../../common/base.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
-import { PostEntity as Post } from '../../posts/entities/post.entity';
-import { FollowerEntity as Follower } from '../../followers/entities/follower.entity';
+import { Column, Entity } from 'typeorm';
 
-@Entity('users')
+@Entity('profile')
 export class UserEntity extends BaseEntity {
   @Column({ length: 30, nullable: false, unique: true })
   username: string;
@@ -28,13 +26,4 @@ export class UserEntity extends BaseEntity {
 
   @Column('boolean', { default: false })
   verified: boolean;
-
-  @OneToMany(() => Post, (post) => post.user)
-  posts: Post[];
-
-  @OneToMany(() => Follower, (follower) => follower.followee)
-  followee: Follower[];
-
-  @OneToMany(() => Follower, (follower) => follower.follower)
-  follower: Follower[];
 }
